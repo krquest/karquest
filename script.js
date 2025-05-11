@@ -76,10 +76,14 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             // Determine API URL based on environment
             const apiBaseUrl = window.location.hostname === 'karquest.onrender.com'
-                ? 'https://karquest.onrender.com'  // Production API domain
-                : `${window.location.origin}:10000`;  // Development API with port 10000
+                ? 'https://karquest.onrender.com/api/car-info'  // Production API domain
+                : 'http://localhost:10000/api/car-info';  // Development API with fixed localhost
             
-            const response = await fetch(`${apiBaseUrl}/api/car-info`, {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+
+            const response = await fetch(apiBaseUrl, {
+                signal: controller.signal,
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -121,8 +125,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
         } catch (error) {
+            if (timeoutId) clearTimeout(timeoutId); // Clean up timeout if defined
             removeThinkingMessage(); // Remove thinking message on error too
-            addAiMessage(`Sorry, an error occurred: ${error.message}`, false, true); // Indicate error
+            const errorMessage = error.name === 'AbortError'
+                ? 'Request timed out. Please try again.'
+                : `Sorry, an error occurred: ${error.message}`;
+            addAiMessage(errorMessage, false, true); // Indicate error
             console.error("API Error:", error);
         }
     }
