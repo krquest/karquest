@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Determine API URL based on environment
             const apiBaseUrl = window.location.hostname === 'karquest.com'
                 ? 'https://api.karquest.com'  // Production API domain
-                : `${window.location.origin}`;  // Use same origin for development
+                : `${window.location.origin}:10000`;  // Development API with port 10000
             
             const response = await fetch(`${apiBaseUrl}/api/car-info`, {
                 method: 'POST',
