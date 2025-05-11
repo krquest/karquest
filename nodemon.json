@@ -1,0 +1,6 @@
+{
+  "watch": ["server.js", ".env"],
+  "ext": "js,json,env",
+  "ignore": ["public/", "node_modules/", "*.log"],
+  "delay": "1500ms"
+}

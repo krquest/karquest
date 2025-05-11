@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: karquest
+    env: node
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3005
+      - key: API_KEY
+        sync: false # Sensitive values should be set in Render dashboard
