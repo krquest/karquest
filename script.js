@@ -75,9 +75,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // Determine API URL based on environment
-            const apiBaseUrl = process.env.NODE_ENV === 'production'
-                ? 'https://api.karquest.com'  // Replace with your actual production API domain
-                : `http://${window.location.hostname}:3005`;
+            const apiBaseUrl = window.location.hostname === 'karquest.com'
+                ? 'https://api.karquest.com'  // Production API domain
+                : `${window.location.origin}`;  // Use same origin for development
             
             const response = await fetch(`${apiBaseUrl}/api/car-info`, {
                 method: 'POST',
