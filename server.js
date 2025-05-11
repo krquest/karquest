@@ -5,7 +5,7 @@ const fetch = require('node-fetch');
 const path = require('path');
 const { getAIResponse } = require('./openai');
 const app = express();
-const port = process.env.PORT || 3005;
+const port = process.env.PORT || 10000;
 
 // Middleware
 app.use(express.json());
