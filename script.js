@@ -74,11 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
         currentConversation.push({ role: 'user', content: userQuery });
 
         try {
-            // Determine API URL based on environment
-            const hostname = window.location.hostname;
-            const apiBaseUrl = hostname === 'localhost' || hostname === '127.0.0.1'
-                ? 'http://localhost:10000/api/car-info'  // Development API
-                : 'https://karquest.onrender.com/api/car-info';  // Production API domain for all other hosts
+            // Use production API endpoint
+            const apiBaseUrl = 'https://karquest.onrender.com/api/car-info';
             
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
